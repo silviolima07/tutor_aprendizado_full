@@ -57,6 +57,7 @@ O **Tutor de Aprendizado** é uma plataforma web que resolve esse problema em tr
   </p>
 
 ### Evolução: De Mocks para LLMs Reais
+Versão 1: 💻 **Repositório GitHub** https://github.com/silviolima07/tutor_aprendizado
 
 A primeira versão foi implementada com dados **simulados (mock)** para validar o fluxo da plataforma. A versão atual já conta com integração real a **modelos de linguagem (LLMs)** via provedores como **Groq** e **Hugging Face**, permitindo que o Tutor de Aprendizado execute tarefas reais de IA generativa.
 
