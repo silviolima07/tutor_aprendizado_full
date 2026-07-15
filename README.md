@@ -12,7 +12,7 @@
 | Recurso | URL |
 |---------|-----|
 | 🌐 **Endpoint público** | https://silviolima-tutor-de-aprendizado.hf.space |
-| 💻 **Repositório GitHub** | https://github.com/silviolima07/tutor_aprendizado |
+| 💻 **Repositório GitHub** | https://github.com/silviolima07/tutor_aprendizado_full |
 
 ---
 
