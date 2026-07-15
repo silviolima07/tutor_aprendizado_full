@@ -1,8 +1,3 @@
----
-title: Tutor de Aprendizado
-sdk: docker
-requirements_file: backend/requirements.txt
----
 
 <img width="1545" height="688" alt="image" src="https://github.com/user-attachments/assets/a6175808-06f0-42ca-97ef-d510095adba1" />
 
