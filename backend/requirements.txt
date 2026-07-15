@@ -1,0 +1,18 @@
+# requirements.txt
+uvicorn==0.24.0
+fastapi==0.111.0
+faker==20.1.0
+python-multipart==0.0.7
+pydantic==2.5.0
+sqlalchemy==2.0.23
+litellm>=1.0.0
+ddgs>=0.5.0
+python-dotenv>=1.0.0
+feedparser==6.0.10
+chromadb==0.4.24
+numpy==1.24.3
+sentence-transformers>=2.2.0
+beautifulsoup4==4.12.2
+requests==2.31.0 
+duckduckgo-search>=5.0.0
+

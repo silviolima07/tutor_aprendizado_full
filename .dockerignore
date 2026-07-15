@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[oc]
+*.egg-info/
+.venv/
+.env
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Build artifacts
+dist/
+build/
+wheels/
+
+# Arquivos gerados pelo IDE (Antigravity)
+*.metadata.json
+.system_generated/
+.notebook/
+
+# Git
+.git/
+
+# Misc
+.DS_Store
+*.log
