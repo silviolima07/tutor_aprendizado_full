@@ -1,8 +1,3 @@
----
-title: Tutor de Aprendizado
-sdk: docker
-requirements_file: backend/requirements.txt
----
 
 <img width="1545" height="688" alt="image" src="https://github.com/user-attachments/assets/a6175808-06f0-42ca-97ef-d510095adba1" />
 
@@ -17,7 +12,7 @@ requirements_file: backend/requirements.txt
 | Recurso | URL |
 |---------|-----|
 | 🌐 **Endpoint público** | https://silviolima-tutor-de-aprendizado.hf.space |
-| 💻 **Repositório GitHub** | https://github.com/silviolima07/tutor_aprendizado |
+| 💻 **Repositório GitHub** | https://github.com/silviolima07/tutor_aprendizado_full |
 
 ---
 
