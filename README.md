@@ -144,7 +144,59 @@ O agente entregou exatamente o comportamento descrito, incluindo o `setTimeout` 
 
 ---
 
-## ⚠️ 4. O que Não Funcionou — Limitações Encontradas
+## 🧠 4. Aprendizados com a Migração de Mocks para LLMs Reais
+
+A transição de endpoints mockados para chamadas reais a modelos de linguagem (v1 → v2) trouxe aprendizados importantes que não estavam previstos no design inicial:
+
+### 1. Latência e UX
+
+O mock respondia em milissegundos. O LLM real leva **5 a 15 segundos** por chamada (especialmente via Groq). Isso exigiu repensar a experiência do usuário:
+
+- **Solução:** Adicionar estados de carregamento com feedback visual em todos os fluxos (spinner, skeleton loading, desabilitação de botões). Onde o mock escondia a complexidade, o LLM real expôs a necessidade de tratamento de `loading`, `error` e `timeout` em cada componente.
+
+### 2. Tratamento de Erros e Respostas Imprevisíveis
+
+O mock sempre retornava JSON perfeito. O LLM pode:
+- Retornar texto extra ao redor do JSON (quebrando `json.loads()`)
+- Alucinar campos ou formatos
+- Simplesmente falhar (timeout, rate limit, API key expirada)
+
+**Solução:** Adicionar `try/except` em todas as chamadas, validação rigorosa da resposta com fallbacks, e logging detalhado para debug.
+
+### 3. Controle de Custos (FinOps)
+
+No mock não havia custo. Com LLMs reais, **cada chamada tem um custo** que precisa ser rastreado:
+
+- **Solução:** Implementar o `TrackingService` que loga no SQLite cada requisição (modelo, tokens, custo) e expõe métricas agregadas no dashboard admin. Isso permitiu visibilidade de FinOps em tempo real.
+
+### 4. Dependência de API Keys e Provedores
+
+O mock funcionava sem configuração. A versão com LLM exige chaves de API (Groq, Hugging Face, OpenAI) e o backend falha graciosamente se não estiverem configuradas.
+
+**Solução:** Uso de variáveis de ambiente com fallbacks. O sistema foi projetado para funcionar em modo "degradado" se a LLM estiver indisponível.
+
+### 5. RAG: do Simulado ao Real
+
+O mock "RAG" era apenas uma resposta fixa baseada em palavra-chave. O RAG real exigiu:
+- Scraping de artigos reais do Medium
+- Geração de embeddings e busca por similaridade
+- Tratamento de conteúdo extenso (limite de tokens do contexto)
+
+**Solução:** Implementar `SearchService` para busca nas fontes e `RAGService` para similaridade. O conteúdo é truncado para caber no contexto do modelo.
+
+### 6. Vazamento de Abstração
+
+Endpoints que antes eram simples (`/mock/lesson`) agora fazem chamadas reais a APIs externas. Isso quebrou a expectativa de que o backend seria puramente "local".
+
+**Solução:** Separar claramente os serviços em `backend/services/` (LLM, RAG, Search, Tracking), mantendo os routers como camada fina de controller.
+
+### Principal Aprendizado
+
+> Mock esconde a complexidade real do sistema. A transição para LLMs reais não é só trocar a fonte dos dados — é repensar resiliência, UX, custos e arquitetura. Um bom design deve antecipar essa diferença desde o início.
+
+---
+
+## ⚠️ 5. O que Não Funcionou — Limitações Encontradas
 
 ### Problema 1: URL hardcoded do backend
 
