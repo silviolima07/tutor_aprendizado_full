@@ -1,8 +1,3 @@
----
-title: Tutor de Aprendizado
-sdk: docker
-requirements_file: backend/requirements.txt
----
 
 <img width="1545" height="688" alt="image" src="https://github.com/user-attachments/assets/a6175808-06f0-42ca-97ef-d510095adba1" />
 
@@ -17,7 +12,7 @@ requirements_file: backend/requirements.txt
 | Recurso | URL |
 |---------|-----|
 | 🌐 **Endpoint público** | https://silviolima-tutor-de-aprendizado.hf.space |
-| 💻 **Repositório GitHub** | https://github.com/silviolima07/tutor_aprendizado_full |
+| 💻 **Repositório GitHub versão 2** | https://github.com/silviolima07/tutor_aprendizado_full |
 
 ---
 
@@ -57,7 +52,7 @@ O **Tutor de Aprendizado** é uma plataforma web que resolve esse problema em tr
   </p>
 
 ### Evolução: De Mocks para LLMs Reais
-Versão 1: 💻 **Repositório GitHub** https://github.com/silviolima07/tutor_aprendizado
+💻 **Repositório GitHub versão 1** https://github.com/silviolima07/tutor_aprendizado
 
 A primeira versão foi implementada com dados **simulados (mock)** para validar o fluxo da plataforma. A versão atual já conta com integração real a **modelos de linguagem (LLMs)** via provedores como **Groq** e **Hugging Face**, permitindo que o Tutor de Aprendizado execute tarefas reais de IA generativa.
 
