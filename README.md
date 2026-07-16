@@ -99,6 +99,30 @@ O backend é organizado em camadas de serviço no diretório `backend/services/`
 | **Search Service** | `search_service.py` | Scraping e busca de conteúdo em fontes externas (Medium) |
 | **Tracking Service** | `tracking_service.py` | Registro de tokens/custos por requisição e métricas agregadas para FinOps |
 
+O backend é organizado em camadas de serviço no diretório `backend/services/`. A integração com modelos de linguagem reais (v2) foi o que motivou a criação desses serviços — cada um resolvendo um aspecto que os mocks da v1 não precisavam tratar:
+
+**LLMService** (`llm_service.py`) — orquestra as chamadas aos modelos de linguagem via LiteLLM:
+- Geração de trilha de estudos (`generate_study_track`)
+- Geração de quiz dinâmico (`generate_quiz`)
+- Resposta contextual do chatbot (`generate_chat_response`)
+- Sumarização de artigos em português (`generate_summary`)
+- Todas as chamadas registram tokens e custo via TrackingService
+
+**RAGService** (`rag_service.py`) — responsável pelo Retrieval-Augmented Generation no chatbot:
+- **BeautifulSoup** (`bs4`) faz scraping do conteúdo real de cada artigo encontrado
+- **SentenceTransformers** (`all-MiniLM-L6-v2`) gera embeddings do conteúdo
+- **ChromaDB** (banco vetorial local) armazena os embeddings e busca por similaridade com a pergunta do aluno
+- Retorna o trecho mais relevante para o LLM responder com contexto
+
+**SearchService** (`search_service.py`) — responsável por encontrar artigos reais sobre o tema do aluno:
+- Usa **DuckDuckGo Search** (`duckduckgo_search`) para buscar nas fontes selecionadas (Medium, YouTube, GitHub, documentação)
+- Fallback via **RSS Feed** do Medium (`feedparser` + `requests`) em `https://medium.com/feed/tag/{tema}`
+- Último fallback com **artigos mock** quando as buscas externas falham
+
+**TrackingService** (`tracking_service.py`) — registra e agrega métricas de uso (FinOps):
+- Loga no SQLite a cada chamada: modelo, tokens (prompt/completion), custo, usuário, timestamp
+- Expõe métricas agregadas para o dashboard admin: total de tokens, custo acumulado, requisições, consumo por modelo e por aluno
+
 ### Fluxo de uma Trilha de Estudos
 
 ```
